@@ -5,25 +5,22 @@ function check(i) {
     return i;
 }
 
-function fizzbuzz(n) {
-    function fb_loop(k, callback) {
-        if (k <= n) fb_loop(k + 1, console.log(check(k)))
-    }
-    fb_loop(1)
+function fizzbuzz(n, k, callback) {
+    k = typeof k !== 'undefined' ? k : 1;
+    if (k <= n) fizzbuzz(n, k + 1, console.log(check(k)));
 }
 
 fizzbuzz(100);
 
-function fizzbuzzarray(n) {
-    function fb_loop(k, arr) {
-        if (k > n) {
-            return arr;
-        } else {
-            arr.push(""+check(k));
-            return fb_loop(k + 1, arr);
-        }
+function fizzbuzzarray(n, k, arr) {
+    k = typeof k !== 'undefined' ? k : 1;
+    arr = typeof arr !== 'undefined' ? arr : [];
+    if (k > n) {
+        return arr;
+    } else {
+        arr.push(""+check(k));
+        return fizzbuzzarray(n, k + 1, arr);
     }
-    return fb_loop(1, [])
 }
 
 console.log(fizzbuzzarray(100));

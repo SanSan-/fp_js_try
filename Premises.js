@@ -1,29 +1,28 @@
-function premises(n) {
-    function prem(k,arr){
-        function check_loop(i) {
-            function check(acc) {
-                if (acc.length===0) {
-                    return true;
-                } else if (i%acc.shift()===0) {
-                    return false;
-                } else {
-                    return check(acc);
-                }
-            }
-            if (check([].concat(arr))) {
-                arr.push(i);
-                return arr;
+function premises(n,k,arr) {
+    function check_loop(i) {
+        function check(acc) {
+            if (acc.length===0) {
+                return true;
+            } else if (i%acc.shift()===0) {
+                return false;
             } else {
-                return arr;
+                return check(acc);
             }
         }
-        if (k > n) {
+        if (check([].concat(arr))) {
+            arr.push(i);
             return arr;
         } else {
-            return prem(k+1,check_loop(k))
+            return arr;
         }
     }
-    return prem(2,[])
+    k = typeof k !== 'undefined' ? k : 2;
+    arr = typeof arr !== 'undefined' ? arr : [];
+    if (k > n) {
+        return arr;
+    } else {
+        return premises(n,k+1,check_loop(k));
+    }
 }
 
 console.log(premises(100));
